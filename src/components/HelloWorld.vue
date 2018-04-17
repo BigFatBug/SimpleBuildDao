@@ -1,11 +1,34 @@
 <template>
   <div class="hello">
-    <el-row>
+    <el-alert
+    title="表名根据CREATE TABLE那句话从正则里拿的"
+    type="success">
+  </el-alert>
+    <el-alert
+      title="字段是判断每行第一个非空字符是不是`"
+      type="info">
+    </el-alert>
+    <el-alert
+      title="所以字段啊表名啊都得用`包起来"
+      type="warning">
+    </el-alert>
+    <el-alert
+      title="java里面的包名啊引用啊就得自己加了"
+      type="error">
+    </el-alert>
+    <el-row style="margin-top: 50px">
       <el-col :span="2">
-        <el-button type="success" round @click="buildDao">赐予我无限爱与被爱的力量</el-button>
+        <el-button type="success" round @click="wakaka" style="margin-bottom: 50px">赐予我无限爱与被爱的力量</el-button>
 
-        <div></div>
-        <img src="../assets/test.gif" style="margin-top: 50px">
+        <div v-show="i>0">模块初始化...</div>
+        <div v-show="i>1">正在加载...</div>
+        <div v-show="i>2">正在引入流量...</div>
+        <div v-show="i>3">打开监控窗...</div>
+        <div v-show="i>4">开启discovery...</div>
+        <div v-show="i>5">建造窗口环境...</div>
+        <div v-show="i>6">模拟哈弗曼...</div>
+        <div v-show="i>7">好吧上面都是骗人的</div>
+        <img v-show="i>8" src="../assets/test.gif">
       </el-col>
       <el-col :span="4">
         建表语句：
@@ -41,6 +64,8 @@
     data() {
       return {
         msg: 'Welcome to Your Vue.js App',
+        i: 0,
+        interval: null,
         input: '',
         output: '',
         tableName: '',
@@ -107,7 +132,18 @@
         }
         return res
       },
+      wakaka(){
+        this.i = 0
+        this.interval = setInterval(this.buildDao, 500)
+      },
       buildDao() {
+        if(this.i < 8){
+          this.i += 1
+          return
+        } else{
+          clearInterval(this.interval)
+        }
+        this.i += 1
         let inputList = this.input.split('\n')
         for (let row of inputList) {
           row.toUpperCase()
