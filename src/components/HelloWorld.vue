@@ -134,7 +134,7 @@
       },
       wakaka(){
         this.i = 0
-        this.interval = setInterval(this.buildDao, 500)
+        this.interval = setInterval(this.buildDao, 250)
       },
       buildDao() {
         if(this.i < 8){
