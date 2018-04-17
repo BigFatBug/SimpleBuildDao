@@ -67,9 +67,6 @@
           '    @SQL("UPDATE " + TABLE_NAME + " SET " + UPDATE_COLUMNS + " WHERE id = :1.id")\n' +
           '    int update(${className} ${objectName});\n' +
           '\n' +
-          '    @SQL("SELECT " + FIELD + " FROM " + TABLE_NAME + " WHERE mifi_id = :1 ")\n' +
-          '    ${className} getByMifiId(long mifiId);\n' +
-          '\n' +
           '    @SQL("SELECT " + FIELD + " FROM " + TABLE_NAME + " WHERE id = :1 ")\n' +
           '    ${className} getById(long Id);\n' +
           '\n' +
@@ -105,7 +102,7 @@
             if (i > 0) {
               res += ', '
             }
-            res += fieldList[i] + '=:1.' + this.transfer(fieldList[i])
+            res += fieldList[i] + ' = :1.' + this.transfer(fieldList[i])
           }
         }
         return res
@@ -136,8 +133,8 @@
             }
           }
         }
-        this.className = this.transfer(this.tableName)
-        this.className = this.className[0].toUpperCase() + this.className.slice(1)
+        this.objectName = this.transfer(this.tableName)
+        this.className = this.objectName[0].toUpperCase() + this.objectName.slice(1)
         let fieldStr = this.tableFieldList.join(', ')
         let noIdTableFieldList = this.tableFieldList.filter((val) => {return val != 'id'})
         let insertStr = this.transfer(noIdTableFieldList.join(', '))
